@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>https://zhaojw1998.github.io/</loc>
+  <lastmod>2021-03-15T02:35:42+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://zhaojw1998.github.io/archive/pdf/CV_Jingwei.pdf</loc>
+  <lastmod>2021-03-15T02:35:37+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://zhaojw1998.github.io/project-auto_arrangement</loc>
+  <lastmod>2021-03-15T02:35:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://zhaojw1998.github.io/project-adversarial_ec2vae</loc>
+  <lastmod>2021-03-15T02:35:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://zhaojw1998.github.io/project-dancing_robot</loc>
+  <lastmod>2021-03-15T02:35:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://zhaojw1998.github.io/presentation_page</loc>
+  <lastmod>2021-03-15T02:35:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://zhaojw1998.github.io/performance_page</loc>
+  <lastmod>2021-03-15T02:35:42+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://zhaojw1998.github.io/front</loc>
+  <lastmod>2021-03-15T02:35:42+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+
+
+</urlset>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% include head.html %}
+
+<body id="page-top">
+  {% include nav_sub.html %}
+  <section class="bg-warning" id="">
+      <div class="container no-gutter">
+        <div class="row"><p class="h1"></p></div>
+        <div class="row"><p class="h1"></p></div>
+        <div class="row"><p class="h1"></p></div>
+        <div class="row"><p class="h1"></p></div>
+        <div class="row"><p class="h1"></p></div>
+          <div class="row">
+
+            <div class="col-lg-12 text-center">
+              <h2 class="section-heading">Adversarial Explicitly-Constrained Conditional VAE</h2> 
+              <a href="https://github.com/zhaojw1998/Adversarial-EC2-VAE--Melody-Generation-towards-Better-Chord-Control">
+                <i class="fa fa-github fa-3x wow bounceIn" data-wow-delay=".1s"></i>
+              </a>
+              <hr class="primary">
+            </div>
+
+            <p class="h3">Introduction</p>
+
+            <p class='text-justify'>
+              Explicitly-Constrained Conditional VAE (<a href="https://arxiv.org/abs/1906.03626" class="text-black">EC<sup>2</sup>-VAE</a>) is a melody generation model published in ISMIR 2019. It disentangles a melody into pitch and rhythm, and generates melody with certain pitch contour and rhythm pattern <b><em>conditioned on a given chord</em></b>. However, the latent pitch representation is not yet chord-invariant, which hinders the decoder from turning to the given chord conditions. 
+            </p>
+
+            <p class='text-justify'>
+              To improve the model's chord controllability, we detach the chord cues from pitch representation by introducing an adversarial loss, which is minimized by a chord discriminator (predicting 12D Chroma from the pitch representation) and maximized by the VAE. The adversarial training imposes the network with minimum chord information and encourages the decoder to explicitly rely on extra chord conditions. 
+            </p>
+
+            <p class="h3">Approach</p>
+
+            <p class='text-justify'>
+              Our model architecture is shown as the figure below. The right part is the origional EC<sup>2</sup>-VAE modle. Its encoder maps a 2-bar melody <em>x</em> into a latent space <em>z</em>. Induced by the network configuration, <em>z</em> is disentangled into <em>z<sub>p</sub></em> and <em>z<sub>r</sub></em>, each of which encodes the melody's pitch contour and rhythm. The model also wishes to generate melody conditioned on an extra chord input. However, <em>z<sub>p</sub></em> inevitably remains chord cues in it, which traps the decoder to rely on this information instead of the extra chord. To solve this problem, we devise a Chord Discriminator (shown in the left) to detach chord cues from <em>z<sub>p</sub></em> through adversarial training and therefore realize reliable chord control.
+            </p>
+              
+            <div class="row text-center">
+              <img src="archive/projects/ad_ec2_vae/diagram.png" style="width: 700px; height: auto ">
+              <p></p>
+              <p class="h5">Overall Diagram of Adversarial EC<sup>2</sup>-VAE</p>
+            </div>
+
+            <p class='text-justify'>
+              The chord discriminator predicts a 12D Chroma from the pitch representation <em>z<sub>p</sub></em>. On the one hand, we optimize parameters of the discriminator while supervising the discriminator to predict true chords; on the other hand, we optimize parameters of the encoder while supervising the discriminator to predict false chords. This adversarial process enhances the discriminator's prediction ability while enforcing the encoder to preserve minimum chord information. Hence the decoder has to rely on extra chord condition to reconstruct the melody. Our current detailed training setting is shown as follows.
+            </p>
+
+            <div class="row text-center">
+              <img src="archive/projects/ad_ec2_vae/fomula.png" style="width: 600px; height: auto ">
+              <p></p>
+              <p class="h5">Adversarial Training Process</p>
+            </div>
+
+            
+            <p class="h3">Demos</p>
+
+            <p class='text-justify'>
+              We present generation results of three melodies controlled by different chords. For each melody, we generate it with the original chord, the modal changed chord (Major-to-Minor or Minor-to-Major), the one-semitone shifted chord, and the major-third shifted chord. The results show that the generation process is strictedly controlled by the chord, while preserving the pitch contour and rhythm of the origional melody. 
+            </p>
+            
+            <div class="row ">
+              <blockquote class="h4 text-left">
+                Original Chords
+              </blockquote>
+                <div class="col-sm-4 text-center">
+                  <audio controls>
+                    <source src="archive/audio/ad_ec2_vae/M1_0.ogg" type="audio/ogg" />
+                    <source src="archive/audio/ad_ec2_vae/M1_0.mp3" type="audio/mpeg" />
+                    <a href="archive/audio/algarr/ad_ec2_vae/M1_0.mp3">Melody 1</a>
+                  </audio>
+                  <p class="h5">Melody 1</p>
+                </div>
+                <div class="col-sm-4 text-center">
+                  <audio controls>
+                    <source src="archive/audio/ad_ec2_vae/M2_0.ogg" type="audio/ogg" />
+                    <source src="archive/audio/ad_ec2_vae/M2_0.mp3" type="audio/mpeg" />
+                    <a href="archive/audio/algarr/ad_ec2_vae/M2_0.mp3">Melody 2</a>
+                  </audio>
+                  <p class="h5">Melody 2</p>
+                </div>
+                <div class="col-sm-4 text-center">
+                  <audio controls>
+                    <source src="archive/audio/ad_ec2_vae/M3_0.ogg" type="audio/ogg" />
+                    <source src="archive/audio/ad_ec2_vae/M3_0.mp3" type="audio/mpeg" />
+                    <a href="archive/audio/algarr/ad_ec2_vae/M3_0.mp3">Melody 3</a>
+                  </audio>
+                  <p class="h5">Melody 3</p>
+                </div>
+            </div>
+
+            <div class="row ">
+              <blockquote class="h4 text-left">
+                Modal Change
+              </blockquote>
+                <div class="col-sm-4 text-center">
+                  <audio controls>
+                    <source src="archive/audio/ad_ec2_vae/M1_modal_change.ogg" type="audio/ogg" />
+                    <source src="archive/audio/ad_ec2_vae/M1_modal_change.mp3" type="audio/mpeg" />
+                    <a href="archive/audio/algarr/ad_ec2_vae/M1_modal_change.mp3">Melody 1</a>
+                  </audio>
+                  <p class="h5">Melody 1</p>
+                </div>
+                <div class="col-sm-4 text-center">
+                  <audio controls>
+                    <source src="archive/audio/ad_ec2_vae/M2_modal_change.ogg" type="audio/ogg" />
+                    <source src="archive/audio/ad_ec2_vae/M2_modal_change.mp3" type="audio/mpeg" />
+                    <a href="archive/audio/algarr/ad_ec2_vae/M2_modal_change.mp3">Melody 2</a>
+                  </audio>
+                  <p class="h5">Melody 2</p>
+                </div>
+                <div class="col-sm-4 text-center">
+                  <audio controls>
+                    <source src="archive/audio/ad_ec2_vae/M3_modal_change.ogg" type="audio/ogg" />
+                    <source src="archive/audio/ad_ec2_vae/M3_modal_change.mp3" type="audio/mpeg" />
+                    <a href="archive/audio/algarr/ad_ec2_vae/M3_modal_change.mp3">Melody 3</a>
+                  </audio>
+                  <p class="h5">Melody 3</p>
+                </div>
+            </div>
+
+            <div class="row ">
+              <blockquote class="h4 text-left">
+                One Semitone Shift
+              </blockquote>
+                <div class="col-sm-4 text-center">
+                  <audio controls>
+                    <source src="archive/audio/ad_ec2_vae/M1_chord+1.ogg" type="audio/ogg" />
+                    <source src="archive/audio/ad_ec2_vae/M1_chord+1.mp3" type="audio/mpeg" />
+                    <a href="archive/audio/algarr/ad_ec2_vae/M1_chord+1.mp3">Melody 1</a>
+                  </audio>
+                  <p class="h5">Melody 1</p>
+                </div>
+                <div class="col-sm-4 text-center">
+                  <audio controls>
+                    <source src="archive/audio/ad_ec2_vae/M2_chord+1.ogg" type="audio/ogg" />
+                    <source src="archive/audio/ad_ec2_vae/M2_chord+1.mp3" type="audio/mpeg" />
+                    <a href="archive/audio/algarr/ad_ec2_vae/M2_chord+1.mp3">Melody 2</a>
+                  </audio>
+                  <p class="h5">Melody 2</p>
+                </div>
+                <div class="col-sm-4 text-center">
+                  <audio controls>
+                    <source src="archive/audio/ad_ec2_vae/M3_chord+1.ogg" type="audio/ogg" />
+                    <source src="archive/audio/ad_ec2_vae/M3_chord+1.mp3" type="audio/mpeg" />
+                    <a href="archive/audio/algarr/ad_ec2_vae/M3_chord+1.mp3">Melody 3</a>
+                  </audio>
+                  <p class="h5">Melody 3</p>
+                </div>
+            </div>
+
+            <div class="row ">
+              <blockquote class="h4 text-left">
+                Major-Third Shift
+              </blockquote>
+                <div class="col-sm-4 text-center">
+                  <audio controls>
+                    <source src="archive/audio/ad_ec2_vae/M1_chord+4.ogg" type="audio/ogg" />
+                    <source src="archive/audio/ad_ec2_vae/M1_chord+4.mp3" type="audio/mpeg" />
+                    <a href="archive/audio/algarr/ad_ec2_vae/M1_chord+4.mp3">Melody 1</a>
+                  </audio>
+                  <p class="h5">Melody 1</p>
+                </div>
+                <div class="col-sm-4 text-center">
+                  <audio controls>
+                    <source src="archive/audio/ad_ec2_vae/M2_chord+4.ogg" type="audio/ogg" />
+                    <source src="archive/audio/ad_ec2_vae/M2_chord+4.mp3" type="audio/mpeg" />
+                    <a href="archive/audio/algarr/ad_ec2_vae/M2_chord+4.mp3">Melody 2</a>
+                  </audio>
+                  <p class="h5">Melody 2</p>
+                </div>
+                <div class="col-sm-4 text-center">
+                  <audio controls>
+                    <source src="archive/audio/ad_ec2_vae/M3_chord+4.ogg" type="audio/ogg" />
+                    <source src="archive/audio/ad_ec2_vae/M3_chord+4.mp3" type="audio/mpeg" />
+                    <a href="archive/audio/algarr/ad_ec2_vae/M3_chord+4.mp3">Melody 3</a>
+                  </audio>
+                  <p class="h5">Melody 3</p>
+                </div>
+            </div>
+
+
+            <p class="h3">Conclusion</p>
+
+            <p class='text-justify'>
+              As shown in the previous demos, our adversarial version acquires a much more reliable chord control than the origional EC<sup>2</sup>-VAE's performance in ISMIR 2019. This is a breakthrough for deep melody generation in that we have a more effective way to disentangle the latent music representations (i.e., <b><em>Disentanglement by Adversarial Training</em></b>) and therefore enable a more controllable creation process.
+            </p>
+      </div>
+</section>
+{% include scripts.html %}
+{% include copyright.html %}
+  </body>
+</html>

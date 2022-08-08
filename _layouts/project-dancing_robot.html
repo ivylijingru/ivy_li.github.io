@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% include head.html %}
+
+<body id="page-top">
+  {% include nav_sub.html %}
+  <section class="bg-warning" id="">
+      <div class="container no-gutter">
+        <div class="row"><p class="h1"></p></div>
+        <div class="row"><p class="h1"></p></div>
+        <div class="row"><p class="h1"></p></div>
+        <div class="row"><p class="h1"></p></div>
+        <div class="row"><p class="h1"></p></div>
+          <div class="row">
+              <div class="col-lg-12 text-center">
+                  <h2 class="section-heading">Real-Time Music-Driven Dance Generation for Humanoid Robot</h2> 
+                  <a href="https://github.com/zhaojw1998/Real-Time-Music-Driven-Dancing-Robot">
+                    <i class="fa fa-github fa-3x wow bounceIn" data-wow-delay=".1s"></i>
+                  </a>
+                  <hr class="primary">
+              </div>
+                
+              <p class="h3">Introduction</p>
+
+              <p class='text-justify'>
+                “Dancing robot” seems to be a contradictory term itself. While “robot” always has something to do with cold machines doing dull and repetitive tasks with no emotion, variation, or interaction, “dance” is a form of performing art which expresses feelings, delivers creativity, and interacts with the music. Yet, the emergence of humanoid robots and pursuit of artificial intelligence have led to the aspiration of equipping robots with human capabilities to feel, think, and act. Dancing Robot, therefore, has found its consistency in both the robotics and the art field.
+              </p>
+
+              <p class='text-justify'>
+                With this project, we aim to explore the term "creativity" at the intersection of robotics and music, e.g., the dance generation process driven by online music. A demo of our performance is shown in the following. This piece is performed by NAO in the virtual environment of CoppeliaSim (Vrep). Full screen is recommended! 
+              </p>
+
+              <p class="h3">Demo</p>
+
+              <p class="text-center">
+                <iframe id="kaltura_player" src="https://cdnapisec.kaltura.com/p/1674401/sp/167440100/embedIframeJs/uiconf_id/23435171/partner_id/1674401?iframeembed=true&playerId=kaltura_player&entry_id=1_ic2fqdgg&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[leadWithHTML5]=true&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[LeadWithHLSOnFlash]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_t7g0c9ul" width="640" height="360" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Kaltura Player">
+                </iframe>
+              </p>
+
+              <p class="h3">Approach</p>
+
+              <p class='text-justify'>
+                Our framework of the real-time dance generation system is composed of three subparts: dance generation, music following, and dance control. For dance generation, we extend the use of unit selection for the generation process of robotic dance sequences; for beat tracking, we apply Madmom to distinguish the beat onset of the background music in real-time; for dance control, we develop a feedback loop with PID control to synchronize each dance motion unit to the background beat onset. The following diagram illustrates the division and communication of each component.
+              </p>
+
+              <div class="row text-center">
+                <img src="archive/projects/dancerobot/diagram.png" style="width: 800px; height: auto ">
+                <p class="h5">Overall Diagram</p>
+              </div>
+                
+              <p class="h3">Dance Generation</p>
+
+              <p class='text-justify'>
+                Unit selection was first introduced in text-to-speech (TTS) systems,  and its intuition is that new, intelligible, and natural sounding speech can be synthesized by concatenating smaller audio units that were derived from a preexisting speech signal [Hunt and Black, 1996; Black and Taylor, 1997; Conkie et al., 2000]. In <a href="https://arxiv.org/abs/1612.03789" class="text-dark">Bretan et. al.'s work</a>, unit selection was first appllied to generation of monophonic music, where music bars are selected iteratively by the ranking of semantic relevance (content similarity) and concatenation cost (continuity). Inspired by this, we propose to generate dance sequence by unit selection also through two criterion. One is the semantic relavance between two dance motion units, and the other is the stability of the robot when it transitions from the previous unit to the new one. In this way, we generate dance sequence in an improvisational manner, where the dance motions are both natual-looking and performable by a humanoid robot.
+              </p>
+
+              <p class="h3">Music Following and Dance Control</p>
+              
+              <p class='text-justify'>
+                We apply <a href="https://github.com/CPJKU/madmom" class="text-dark">Madmom</a> to track beat onsets for real-time music input, and a feedback loop with PID control to synchronize the generated dance to the music. The block diagram of our PID control is shown as following. The graph on the right demonstrates our synchronizing performance, with its horizontal axis representing time and vertical representing tempo error. 
+              </p>
+   
+              <div class="col-sm-6 text-center">
+                  <img src="archive/projects/dancerobot/pid.png" style="width: auto; height: 240px ">
+                  <p class="h5">Music Following Control Loop</p>
+              </div>   
+
+              <div class="col-sm-6 text-center">
+                <img src="archive/projects/dancerobot/speed.png" style="width: auto; height: 240px ">
+                <p class="h5">Music Following Error-Time Graph</p>
+              </div>   
+
+              
+
+              
+
+            
+          </div>
+      </div>
+</section>
+{% include scripts.html %}
+{% include copyright.html %}
+  </body>
+</html>
